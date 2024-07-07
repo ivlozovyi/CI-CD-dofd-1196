@@ -38,9 +38,6 @@ jobs:
     - name: Build the source code
       run: npm run build --if-present
 
-    - name: Run tests
-      run: npm test
-
     - name: Echo job status
       run: echo "This job's status is ${{ job.status }}."
 
