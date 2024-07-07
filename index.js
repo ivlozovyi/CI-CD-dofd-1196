@@ -4,6 +4,7 @@ const sqlite3 = require("sqlite3").verbose();
 const cors = require("cors");
 require("dotenv").config();
 
+//add comment to test PRs
 // Configure ports
 const args = process.argv;
 const p_index = args.indexOf("--p");
