@@ -1,0 +1,48 @@
+name: Node.js CI
+run-name: ${{ github.actor }} is testing out GitHub Actions
+
+on:
+  push:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  GitHub-Actions:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - name: Echo event details
+      run: |
+        echo "The job was automatically triggered by a ${{ github.event_name }}"
+        echo "This job is now running on a ${{ runner.os }}"
+        echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository}}."
+
+    - name: Check out repository code
+      uses: actions/checkout@v4
+        
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Build the source code
+      run: npm run build --if-present
+
+    - name: Run tests
+      run: npm test
+
+    - name: Echo job status
+      run: echo "This job's status is ${{ job.status }}."
+
+
+      
