@@ -23,15 +23,15 @@ jobs:
         echo "This job is now running on a ${{ runner.os }}"
         echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository}}."
         
-    - name: Check out repository code
-      uses: actions/checkout@v4
-
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-
+        
+    - name: Check out repository code
+      uses: actions/checkout@v4
+      
     - name: Install dependencies
       run: npm ci
 
